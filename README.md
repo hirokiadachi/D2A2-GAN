@@ -16,3 +16,8 @@ Generatorのネットワークが記述してある．
 
 * nets/Discriminator.py<br>
 Disciminatorのネットワークが記述してある．
+
+生成した画像，Attention mapや誤差は，tensorboardに書き込むように作成している．
+
+# Requirement
+* pytorch ver1.0.0以上
