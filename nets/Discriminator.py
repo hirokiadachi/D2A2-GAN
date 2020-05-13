@@ -64,8 +64,7 @@ class Discriminator(nn.Module):
             in_features = in_features * 2
         
         adv_block = nn.Sequential(
-            nn.Conv2d(in_features+1, in_features*2, kernel_size=2, stride=1, padding=0),
-            nn.LeakyReLU())
+            nn.Conv2d(in_features+1, 1, kernel_size=2, stride=1, padding=0))
         
         out_layer = nn.Linear(in_features*2, 1)
         
@@ -125,7 +124,8 @@ class Discriminator(nn.Module):
         h_adv = self.minibatch_std(h_adv)
         h_adv = self.adv_block(h_adv)
         h_adv = h_adv.flatten(start_dim=1)
-        adv_out = self.adv_out_layer(h_adv)
+        adv_out = h_adv
+        #adv_out = self.adv_out_layer(h_adv)
         
         return adv_out, cls_out, attn_map
     

@@ -18,7 +18,7 @@ class GBlock(nn.Module):
             self.model.add_module('BatchNorm_2',
                 nn.BatchNorm2d(out_features))
             self.model.add_module('Activation_2',
-                nn.LeakyReLU())
+                nn.ReLU())
         elif layer == 'last':
             self.model.add_module('Activation_2',
                 nn.Tanh())
