@@ -7,21 +7,21 @@ class DBlock(nn.Module):
         super(DBlock, self).__init__()
         self.model = nn.Sequential()
         if layer == 'first':
-            self.model.add_module('Convolution_1',
+            self.model.add_module('Convolution',
                 nn.Conv2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
-            self.model.add_module('Activation_1',
+            self.model.add_module('Activation',
                 nn.LeakyReLU())
             
         elif layer == 'normal':
-            self.model.add_module('Convolution_1',
+            self.model.add_module('Convolution',
                 nn.Conv2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
-            self.model.add_module('BatchNorm_1',
+            self.model.add_module('BatchNorm',
                 nn.BatchNorm2d(out_features))
             if act == 'lrelu':
-                self.model.add_module('Activation_2',
+                self.model.add_module('Activation',
                     nn.LeakyReLU())
             elif act == 'relu':
-                self.model.add_module('Activation_2',
+                self.model.add_module('Activation',
                     nn.ReLU(inplace=True))
             
         

@@ -6,15 +6,15 @@ class GBlock(nn.Module):
     def __init__(self, in_features, out_features, k=3, s=1, p=1, bias=False, layer='normal'):
         super(GBlock, self).__init__()
         self.model = nn.Sequential()
-        self.model.add_module('Convolution_1',
+        self.model.add_module('Convolution',
             nn.ConvTranspose2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
         if layer == 'normal':
-            self.model.add_module('BatchNorm_2',
+            self.model.add_module('BatchNorm',
                 nn.BatchNorm2d(out_features))
-            self.model.add_module('Activation_2',
+            self.model.add_module('Activation',
                 nn.ReLU())
         elif layer == 'last':
-            self.model.add_module('Activation_2',
+            self.model.add_module('Activation',
                 nn.Tanh())
             
     def forward(self, x):
