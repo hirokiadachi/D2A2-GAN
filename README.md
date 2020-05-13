@@ -31,6 +31,9 @@ python3 main.py --training_data_name cifar10 --epoch 100 --gpu 0
 python3 main.py --training_data_name svhn --epoch 100 --gpu 0
 ```
 
+generating_images_for_data_augmentation.pyを動かすとクラスラベルと生成画像をディレクトリに保存する．
+クラスラベルは，onehot及びAttention branchの出力にsoftmax関数を施したものを保存する．
+
 # Requirement
 * python3
 * pytorch ver1.0.0以上
