@@ -69,8 +69,9 @@ if not os.path.exists(args.result_dir):
 # Choose dataset using training
 if args.training_data_name == 'cifar10':
     training_data = datasets.CIFAR10(root='./data', download=True, transform=transform_trian)
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 
-                   'dog', 'frog', 'horse', 'ship', 'truck']
+    txt_name = 'cifar10_class_names.txt'
+    with open(txt_name, 'r') as f:
+        class_names = f.read().split()
 elif args.training_data_name == 'svhn':
     training_data = datasets.SVHN(root='./data', download=True, transform=transform_trian)
     class_names = np.arange(10)
