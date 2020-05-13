@@ -37,3 +37,4 @@ generating_images_for_data_augmentation.pyを動かすとクラスラベルと�
 # Requirement
 * python3
 * pytorch ver1.0.0以上
+* tqdm
