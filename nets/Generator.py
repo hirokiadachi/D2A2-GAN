@@ -8,12 +8,6 @@ class GBlock(nn.Module):
         self.model = nn.Sequential()
         self.model.add_module('Convolution_1',
             nn.ConvTranspose2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
-        self.model.add_module('BatchNorm_1',
-            nn.BatchNorm2d(out_features))
-        self.model.add_module('Activation_1',
-            nn.LeakyReLU())
-        self.model.add_module('Convolution_2',
-            nn.Conv2d(out_features, out_features, kernel_size=3, stride=1, padding=1, bias=bias))
         if layer == 'normal':
             self.model.add_module('BatchNorm_2',
                 nn.BatchNorm2d(out_features))

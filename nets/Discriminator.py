@@ -11,24 +11,12 @@ class DBlock(nn.Module):
                 nn.Conv2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
             self.model.add_module('Activation_1',
                 nn.LeakyReLU())
-            #self.model.add_module('Convolution_2',
-            #    nn.Conv2d(out_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
-            #self.model.add_module('BatchNorm',
-            #    nn.BatchNorm2d(out_features))
-            #self.model.add_module('Activation_2',
-            #    nn.LeakyReLU())
             
         elif layer == 'normal':
             self.model.add_module('Convolution_1',
                 nn.Conv2d(in_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
             self.model.add_module('BatchNorm_1',
                 nn.BatchNorm2d(out_features))
-            #self.model.add_module('Activation_1',
-            #    nn.LeakyReLU())
-            #self.model.add_module('Convolution_2',
-            #    nn.Conv2d(out_features, out_features, kernel_size=k, stride=s, padding=p, bias=bias))
-            #self.model.add_module('BatchNorm_2',
-            #    nn.BatchNorm2d(out_features))
             if act == 'lrelu':
                 self.model.add_module('Activation_2',
                     nn.LeakyReLU())
@@ -36,7 +24,6 @@ class DBlock(nn.Module):
                 self.model.add_module('Activation_2',
                     nn.ReLU(inplace=True))
             
-        #self.model.add_module('AvgPool', nn.AvgPool2d(2, 2))
         
     def forward(self, x):
         return self.model(x)
