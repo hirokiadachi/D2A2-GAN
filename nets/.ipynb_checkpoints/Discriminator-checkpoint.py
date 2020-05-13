@@ -36,7 +36,7 @@ class DBlock(nn.Module):
                 self.model.add_module('Activation_2',
                     nn.ReLU(inplace=True))
             
-        self.model.add_module('AvgPool', nn.AvgPool2d(2, 2))
+        #self.model.add_module('AvgPool', nn.AvgPool2d(2, 2))
         
     def forward(self, x):
         return self.model(x)
@@ -45,8 +45,8 @@ class Discriminator(nn.Module):
     def __init__(self, in_ch, class_num):
         super(Discriminator, self).__init__()
         self.class_num = class_num
-        self.l0 = DBlock(in_ch, 32, k=3, s=1, p=1, bias=False, layer='first')
-        self.l1 = DBlock(32, 64, k=3, s=1, p=1, bias=False, layer='normal', act='relu')
+        self.l0 = DBlock(in_ch, 32, k=4, s=2, p=1, bias=False, layer='first')
+        self.l1 = DBlock(32, 64, k=4, s=2, p=1, bias=False, layer='normal', act='relu')
         self.attn_conv_layers, self.attn_block1, self.attn_block2 = self.make_attention_branch(nn.Sequential(), 64, 2)
         self.adv_conv_layers, self.adv_block, self.adv_out_layer = self.make_adversarial_branch(nn.Sequential(), 64, 2)
         
@@ -54,13 +54,13 @@ class Discriminator(nn.Module):
     def make_adversarial_branch(self, model, in_features, n):
         for i in range(n):
             model.add_module('Convolution_%d' % i,
-                nn.Conv2d(in_features, in_features*2, kernel_size=3, stride=1, padding=1, bias=False))
+                nn.Conv2d(in_features, in_features*2, kernel_size=4, stride=2, padding=1, bias=False))
             model.add_module('BatchNorm_%d' % i,
                 nn.BatchNorm2d(in_features*2))
             model.add_module('Activation_%d' % i,
                 nn.LeakyReLU())
-            model.add_module('AvgPool_%d' % i,
-                nn.AvgPool2d(2, 2))
+            #model.add_module('AvgPool_%d' % i,
+            #    nn.AvgPool2d(2, 2))
             in_features = in_features * 2
         
         adv_block = nn.Sequential(
