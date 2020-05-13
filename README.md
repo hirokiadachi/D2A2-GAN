@@ -1,5 +1,6 @@
 # D2A2-GAN
 Discriminator-Driven Attention-Aware GAN (D2A2-GAN)<br>
+識別器の注視領域に着目して画像を生成するGAN.<br>
 GeneratorはDCGAN (Deep Convolutional GAN)とほぼ同様に構築した．<br>
 Discminatorは最終層をAttention branchとAdversarial branchに分割した．<br>
 Attention branchはABN (Attention Branch Network)を参考に導入しており，入力画像に対するAttention mapの生成及びクラス分類を行う．<br>
