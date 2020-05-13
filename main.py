@@ -19,19 +19,29 @@ from nets.Discriminator import Discriminator
 
 def args():
     p = argparse.ArgumentParser()
-    p.add_argument('--latent_dim', type=int, default=100)
-    p.add_argument('-b', '--batch_size', type=int, default=100)
-    p.add_argument('-t', '--training_data_name', choices=['cifar10', 'svhn'], required=True)
-    p.add_argument('--log_dir', type=str, default='logs')
-    p.add_argument('--result_dir', type=str, default='result')
-    p.add_argument('--lr', type=float, default=0.0002)
+    p.add_argument('--latent_dim', type=int, default=100,
+                   help='Latent variable dimension.')
+    p.add_argument('-b', '--batch_size', type=int, default=100,
+                   help='Training batch size.')
+    p.add_argument('-t', '--training_data_name', choices=['cifar10', 'svhn'], required=True,
+                   help='Select training data (CIFAR-10 or SVHN).')
+    p.add_argument('--log_dir', type=str, default='logs',
+                   help='Tensorboard directory name.')
+    p.add_argument('--result_dir', type=str, default='result',
+                   help='Network models saving directory name.')
+    p.add_argument('--lr', type=float, default=0.0002,
+                   help='Optimizer learning rate.')
     p.add_argument('--beta1', type=float, default=0.5)
     p.add_argument('--beta2', type=float, default=0.999)
-    p.add_argument('--gpu', nargs='*', type=int, required=True)
-    p.add_argument('--workers', type=int, default=multiprocessing.cpu_count())
-    p.add_argument('-e', '--epoch', type=int, default=100)
-    p.add_argument('-n', '--num_gen', type=int, default=10)
-    p.add_argument('--gen', type=str, default='gen')
+    p.add_argument('--gpu', nargs='*', type=int, required=True,
+                   help='GPU number.')
+    p.add_argument('--workers', type=int, default=multiprocessing.cpu_count(),
+                   help='Number of CPU worker.')
+    p.add_argument('-e', '--epoch', type=int, default=100,
+                   help='Number of trainig epoch.')
+    p.add_argument('-n', '--num_gen', type=int, default=10,
+                   help='Number of generation images by Generater when test time.')
+    p.add_argument('--gen', type=str, default='gen',)
     p.add_argument('--dis', type=str, default='dis')
     p.add_argument('--critic', type=int, default=1)
     return p.parse_args()

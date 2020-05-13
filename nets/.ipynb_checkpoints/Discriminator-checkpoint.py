@@ -48,7 +48,7 @@ class Discriminator(nn.Module):
         self.l0 = DBlock(in_ch, 32, k=4, s=2, p=1, bias=False, layer='first')
         self.l1 = DBlock(32, 64, k=4, s=2, p=1, bias=False, layer='normal', act='relu')
         self.attn_conv_layers, self.attn_block1, self.attn_block2 = self.make_attention_branch(nn.Sequential(), 64, 2)
-        self.adv_conv_layers, self.adv_block, self.adv_out_layer = self.make_adversarial_branch(nn.Sequential(), 64, 2)
+        self.adv_conv_layers, self.adv_block = self.make_adversarial_branch(nn.Sequential(), 64, 2)
         
         
     def make_adversarial_branch(self, model, in_features, n):
@@ -59,16 +59,12 @@ class Discriminator(nn.Module):
                 nn.BatchNorm2d(in_features*2))
             model.add_module('Activation_%d' % i,
                 nn.LeakyReLU())
-            #model.add_module('AvgPool_%d' % i,
-            #    nn.AvgPool2d(2, 2))
             in_features = in_features * 2
         
         adv_block = nn.Sequential(
             nn.Conv2d(in_features+1, 1, kernel_size=2, stride=1, padding=0))
-        
-        out_layer = nn.Linear(in_features*2, 1)
-        
-        return model, adv_block, out_layer
+                
+        return model, adv_block
     
     def make_attention_branch(self, model, in_features, n):
         for i in range(n):
@@ -125,7 +121,6 @@ class Discriminator(nn.Module):
         h_adv = self.adv_block(h_adv)
         h_adv = h_adv.flatten(start_dim=1)
         adv_out = h_adv
-        #adv_out = self.adv_out_layer(h_adv)
         
         return adv_out, cls_out, attn_map
     
