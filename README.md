@@ -19,5 +19,17 @@ Disciminatorのネットワークが記述してある．
 
 生成した画像，Attention mapや誤差は，tensorboardに書き込むように作成している．
 
+# Useage
+* cifar10
+```
+python3 main.py --training_data_name cifar10 --epoch 100 --gpu 0
+```
+
+* svhn
+```
+python3 main.py --training_data_name svhn --epoch 100 --gpu 0
+```
+
 # Requirement
+* python3
 * pytorch ver1.0.0以上
