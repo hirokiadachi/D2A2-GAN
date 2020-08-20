@@ -5,6 +5,7 @@ GeneratorはDCGAN (Deep Convolutional GAN)とほぼ同様に構築した．<br>
 Discminatorは最終層をAttention branchとAdversarial branchに分割した．<br>
 Attention branchはABN (Attention Branch Network)を参考に導入しており，入力画像に対するAttention mapの生成及びクラス分類を行う．<br>
 Adversarial branchは，Attention機構を用いてAttention mapを特徴マップへ反映して敵対的な誤差を出力する．
+正確なAttention mapを得るための工夫としてABNの出力するAttention mapを教師信号としてconsistency lossを計算している．
 
 * main.py<br>
 D2A2-GANを動かすためのメインのソースコード．
@@ -17,6 +18,9 @@ Generatorのネットワークが記述してある．
 
 * nets/Discriminator.py<br>
 Disciminatorのネットワークが記述してある．
+
+* ABN<br>
+ABNのディレクトリの中にはAttention branch networkが含まれている．
 
 生成した画像，Attention mapや誤差は，tensorboardに書き込むように作成している．
 
