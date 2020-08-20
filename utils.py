@@ -1,9 +1,14 @@
 import os
 import cv2
+import PIL
+import pickle 
+import random
 import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
+from torch.utils.data import Dataset
+
 
 def save_tensorboard(epoch, G, D, training_data, num_gen, latent_dim, class_names, tb):
     G.eval()
@@ -37,7 +42,6 @@ def save_tensorboard(epoch, G, D, training_data, num_gen, latent_dim, class_name
                  real_img_array, global_step=epoch, dataformats='HWC')
         
     for index, (v_im, attn) in enumerate(zip(fake_img, attn_map_fake)):
-        v_im = (v_im + 1) / 2
         v_im = np.uint8((v_im * 255).clamp(min=0, max=255).cpu().data.numpy()).transpose(1,2,0)
         
         _attn_map = F.interpolate(attn.unsqueeze(0), size=(real_img.size(1), real_img.size(2)),
@@ -59,7 +63,7 @@ def save_tensorboard(epoch, G, D, training_data, num_gen, latent_dim, class_name
     with torch.no_grad():
         ims = G(latent_val)
         
-    ims_cpu = ((ims + 1) / 2).clamp(min=0, max=255).cpu().data.numpy()
+    ims_cpu = ((ims + 1) / 2).clamp(min=0, max=1.).cpu().data.numpy()
     tb.add_images('Images class_%s' % class_name, ims_cpu, global_step=epoch)
         
         

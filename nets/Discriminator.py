@@ -110,4 +110,3 @@ class Discriminator(nn.Module):
         adv_out = h_adv
         
         return adv_out, cls_out, attn_map
-    

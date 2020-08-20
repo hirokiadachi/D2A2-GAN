@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-
 class GBlock(nn.Module):
     def __init__(self, in_features, out_features, k=3, s=1, p=1, bias=False, layer='normal'):
         super(GBlock, self).__init__()
@@ -37,3 +36,4 @@ class Generator(nn.Module):
         out = self.l4(h)
         
         return out
+    
